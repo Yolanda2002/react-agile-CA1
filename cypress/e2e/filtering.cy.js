@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-import { filterByGenre, filterByTitle, filterByGenreAndTitle} from "../support/e2e";
+import { filterByGenre, filterByTitle, filterByGenreAndTitle, filterByLanguage } from "../support/e2e";
 
 let movies; // List of Discover movies from TMDB
 
@@ -57,7 +57,7 @@ describe("Filtering", () => {
     });
     describe("Combined genre and title", () => {
         // TODO
-        it("show movies with the selected genre and with 'm' in the title",() =>{
+        it("show movies with the selected genre and with 'm' in the title", () => {
             const searchString = "p";
             const selectedGenreId = 18;
             const selectedGenreText = "Drama";
@@ -74,4 +74,22 @@ describe("Filtering", () => {
             });
         })
     });
+
+    describe("By movie language", () => {
+        it("show movies with the selected language", () => {
+          const selectedLanguageCode = "en"; 
+          let matchingMovies = filterByLanguage(movies, selectedLanguageCode);
+      
+          cy.get("#language-select").click();
+          cy.get("li").contains(selectedLanguageCode).click();
+          cy.get(".MuiCardHeader-content").should(
+              "have.length",
+              matchingMovies.length
+          );
+          cy.get(".MuiCardHeader-content").each(($card, index) => {
+              cy.wrap($card).find("p").contains(matchingMovies[index].title);
+          });
+        });
+      });
+      
 });
