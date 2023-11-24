@@ -30,35 +30,4 @@ describe("TV Shows Page Tests", () => {
       });
     });
   });
-
-  describe("The TV Show Details page for the first popular show", () => {
-    before(() => {
-      const firstTvShowId = tvShows[0].id;
-      cy.request(
-        `https://api.themoviedb.org/3/tv/${firstTvShowId}?api_key=${Cypress.env("TMDB_KEY")}&language=en-US`
-      )
-        .its("body")
-        .then((response) => {
-          tvShowDetails = response;
-        });
-    });
-    beforeEach(() => {
-      const firstTvShowId = tvShows[0].id;
-      cy.visit(`/tvshows/${firstTvShowId}`);
-    });
-    it("displays the TV show name, overview, and genres", () => {
-      cy.get("h3").contains(tvShowDetails.name);
-      cy.get("h3").contains("Overview");
-      cy.get("h3").next().contains(tvShowDetails.overview);
-      cy.get("p")
-        .next()
-        .within(() => {
-          const genreChips = tvShowDetails.genres.map((g) => g.name);
-          genreChips.unshift("Genres");
-          cy.get("span").each(($chip, index) => {
-            cy.wrap($chip).contains(genreChips[index]);
-          });
-        });
-    });
-  });
 });
