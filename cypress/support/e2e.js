@@ -30,3 +30,15 @@ export const filterByGenreAndTitle = (movieList, genreId, string) =>
 
 export const filterByLanguage = (movieList, languageCode) =>
     movieList.filter((m) => m.original_language === languageCode);
+
+export const filterByGender = (peopleList, gender) => {
+    let genderNumber;
+    if (gender === 'male') {
+        genderNumber = 2;
+    } else if (gender === 'female') {
+        genderNumber = 1;
+    }
+    return peopleList.filter((p) => {
+        return gender === 'all' || p.gender === genderNumber;
+    });
+};
