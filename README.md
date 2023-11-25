@@ -115,4 +115,4 @@ All the pull requests and code reviews for this assignment are documented on Git
 
 Details of the commit messages:
 
-image/image-20231125203717077.png
+![Image text]https://github.com/Yolanda2002/react-agile-CA1/blob/be1eee260985a300957d6049d32eb37a4325265e/image/image-20231125203717077.png
